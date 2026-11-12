@@ -1,0 +1,14 @@
+SITE DE VOTAÇÃO — III SIMCA
+
+1. Este pacote é um projeto Netlify com uma função serverless.
+2. Para deploy de funções, prefira conectar um repositório GitHub ao Netlify. Upload manual de ZIP pode não compilar/publicar funções; confira a seção Functions no painel após publicar.
+3. Configure Environment variables no Netlify:
+   SUPABASE_URL = URL do projeto Supabase (https://...supabase.co)
+   SUPABASE_SECRET_KEY = chave secreta do Supabase (nunca no frontend)
+4. Faça redeploy depois de definir variáveis.
+5. Confirme que o endpoint /api/vote responde e teste com dados fictícios dentro da janela. A janela de votação é 12/11/2026 08h até 13/11/2026 18h, horário de Brasília.
+6. IMPORTANTE: A tabela votos deve aceitar categoria_id 'P' ou 'B' e fotografia_id 'P1'...'B6'. Confirme FKs e CHECK constraints. O índice único (lower(trim(email)), categoria_id) deve existir.
+7. Fotos: bucket público fotografias-simca; objetos P1.jpg ... P6.jpg e B1.jpg ... B6.jpg.
+8. Proteção contra fraude: sem verificação do e-mail, uma pessoa pode usar vários endereços ou e-mails de terceiros. Rate limiting e CAPTCHA devem ser adicionados antes de divulgação ampla. Não declare o sistema antifraude.
+9. As imagens e informações dos autores são públicas; nomes e e-mails dos votantes não são disponibilizados por API pública.
+10. Verifique se Netlify Functions aceita a chave Supabase Secret Key na API REST. Caso use chave legada service_role, mantenha-a apenas nas variáveis de ambiente do servidor.
